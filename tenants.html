@@ -1,55 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Tenants</title>
-    <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tenant Management</title>
+
+<link rel="stylesheet" href="css/style.css">
+
 </head>
+
 <body>
 
 <!-- Sidebar -->
 <div class="sidebar">
+
     <h2>JEFARELID</h2>
+
     <a href="dashboard.html">🏠 Dashboard</a>
     <a href="buildings.html">🏢 Buildings</a>
     <a href="rooms.html">🚪 Rooms</a>
     <a href="tenants.html">👤 Tenants</a>
     <a href="contracts.html">📝 Contracts</a>
     <a href="payments.html">💰 Payments</a>
-    <a href="utility.html">💡 Utility Bills</a>
+    <a href="utility.html">💡 Utility Billing</a>
     <a href="reports.html">📊 Reports</a>
-    <a href="users.html">👥 Users</a>
-    <a href="auditlogs.html">📋 Audit Logs</a>
-    <a href="index.html">🚪 Logout</a>
+
+    <div id="superAdminMenu">
+        <a href="users.html">👥 User Management</a>
+        <a href="auditlogs.html">📋 Audit Logs</a>
+    </div>
+
+    <a href="#" onclick="logout()">🚪 Logout</a>
+
 </div>
 
+<!-- Main Content -->
 <div class="content">
 
-<h1>Tenant Management</h1>
+    <h1>Tenant Management</h1>
 
-<button>Add Tenant</button>
+    <button onclick="openTenantModal()">+ Add Tenant</button>
 
-<table>
+    <br><br>
 
-<tr>
-<th>ID</th>
-<th>Name</th>
-<th>Contact</th>
-<th>Company</th>
-<th>Action</th>
-</tr>
+    <table id="tenantTable">
 
-<tr>
-<td>1</td>
-<td>Juan Dela Cruz</td>
-<td>09123456789</td>
-<td>ABC Trading</td>
-<td>
-<button>Edit</button>
-<button>Delete</button>
-</td>
-</tr>
+        <tr>
+            <th>ID</th>
+            <th>Company Name</th>
+            <th>Contact Person</th>
+            <th>Contact Number</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
 
-</table>
+        <tr>
+
+            <td>1</td>
+            <td>ABC Trading</td>
+            <td>Juan Dela Cruz</td>
+            <td>09123456789</td>
+            <td>abc@example.com</td>
+            <td>Active</td>
+
+            <td>
+                <button onclick="editTenant(this)">Edit</button>
+                <button onclick="deleteTenant(this)">Delete</button>
+            </td>
+
+        </tr>
+
+    </table>
 
 </div>
+
+<!-- Tenant Modal -->
+
+<div id="tenantModal" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close" onclick="closeTenantModal()">&times;</span>
+
+        <h2>Add Tenant</h2>
+
+        <label>Company Name</label>
+        <input type="text" id="company">
+
+        <label>Contact Person</label>
+        <input type="text" id="contactPerson">
+
+        <label>Contact Number</label>
+        <input type="text" id="contactNumber">
+
+        <label>Email</label>
+        <input type="email" id="tenantEmail">
+
+        <label>Status</label>
+
+        <select id="tenantStatus">
+
+            <option value="Active">Active</option>
+            <option value="Pending Approval">Pending Approval</option>
+            <option value="Reserved">Reserved</option>
+            <option value="Contract Expiring">Contract Expiring</option>
+            <option value="Renewed">Renewed</option>
+            <option value="Expired">Expired</option>
+            <option value="Terminated">Terminated</option>
+            <option value="Inactive">Inactive</option>
+
+        </select>
+
+        <br><br>
+
+        <button onclick="addTenant()">Save</button>
+
+    </div>
+
+</div>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>
