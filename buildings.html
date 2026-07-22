@@ -2,82 +2,76 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Buildings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buildings — JEFARELID</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body data-page="buildings">
 
-<!-- Sidebar -->
 <div class="sidebar">
     <h2>JEFARELID</h2>
-    <a href="dashboard.html">🏠 Dashboard</a>
-    <a href="buildings.html">🏢 Buildings</a>
-    <a href="rooms.html">🚪 Rooms</a>
-    <a href="tenants.html">👤 Tenants</a>
-    <a href="contracts.html">📝 Contracts</a>
-    <a href="payments.html">💰 Payments</a>
-    <a href="utility.html">💡 Utility Bills</a>
-    <a href="reports.html">📊 Reports</a>
-    <a href="users.html">👥 Users</a>
-    <a href="auditlogs.html">📋 Audit Logs</a>
-    <a href="index.html">🚪 Logout</a>
+    <a href="dashboard.html" data-page="dashboard">🏠 Dashboard</a>
+    <a href="buildings.html" data-page="buildings">🏢 Buildings</a>
+    <a href="rooms.html" data-page="rooms">🚪 Rooms</a>
+    <a href="tenants.html" data-page="tenants">👤 Tenants</a>
+    <a href="contracts.html" data-page="contracts">📝 Contracts</a>
+    <a href="payments.html" data-page="payments">💰 Payments</a>
+    <a href="utility.html" data-page="utility">💡 Utility Billing</a>
+    <a href="reports.html" data-page="reports">📊 Reports</a>
+    <div id="superAdminMenu">
+        <a href="users.html" data-page="users">👥 User Management</a>
+        <a href="auditlogs.html" data-page="auditlogs">📋 Audit Logs</a>
+    </div>
+    <a href="#" class="logout-link" onclick="logout()">🚪 Logout</a>
 </div>
 
-<!-- Main Content -->
 <div class="content">
-    <h1>Building Management</h1>
-    <button onclick="openModal()">Add Building</button>
+    <div class="page-header">
+        <div>
+            <h1>Building Management</h1>
+            <p>Manage all buildings and property locations</p>
+        </div>
+        <button onclick="openModal()">+ Add Building</button>
+    </div>
 
-    <h2>Buildings</h2>
-    <table id="buildingTable">
-    <tr>
-        <th>ID</th>
-        <th>Building</th>
-        <th>Address</th>
-        <th>Floors</th>
-        <th>Total Rooms</th>
-        <th>Building Type</th>
-        <th>Status</th>
-        <th>Action</th>
-    </tr>
+    <div class="table-toolbar">
+        <input type="text" id="buildingSearch" class="search-box" placeholder="Search buildings..." oninput="filterBuildings()">
+    </div>
 
-    <tr>
-        <td>1</td>
-        <td>Main Tower</td>
-        <td>123 Central Ave</td>
-        <td>5</td>
-        <td>20</td>
-        <td>Commercial Building</td>
-        <td>Active</td>
-        <td>
-            <button onclick="editBuilding(this)">Edit</button>
-            <button onclick="deleteBuilding(this)">Delete</button>
-        </td>
-    </tr>
-</table>
+    <div class="panel">
+        <div class="panel-body table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th><th>Building</th><th>Address</th><th>Floors</th>
+                        <th>Total Rooms</th><th>Type</th><th>Status</th><th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="buildingTableBody"></tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-<!-- Add Building Modal -->
 <div id="buildingModal" class="modal">
-
     <div class="modal-content">
-
         <span class="close" onclick="closeModal()">&times;</span>
-
         <h2>Add Building</h2>
-
+        <input type="hidden" id="buildingEditId">
         <label>Building Name</label>
-        <input type="text" id="buildingName">
-
+        <input type="text" id="buildingName" placeholder="e.g. Main Tower">
         <label>Building Address</label>
-        <input type="text" id="buildingAddress">
-
-        <label>Number of Floors</label>
-        <input type="number" id="buildingFloors">
-
-        <label>Total Rooms</label>
-        <input type="number" id="buildingRooms">
-
+        <input type="text" id="buildingAddress" placeholder="Full address">
+        <div class="form-row">
+            <div>
+                <label>Number of Floors</label>
+                <input type="number" id="buildingFloors" min="1">
+            </div>
+            <div>
+                <label>Total Rooms</label>
+                <input type="number" id="buildingRooms" min="1">
+            </div>
+        </div>
         <label>Building Type</label>
         <select id="buildingType">
             <option value="">Select Building Type</option>
@@ -86,22 +80,17 @@
             <option>Mixed Use Building</option>
             <option>Warehouse</option>
         </select>
-
         <label>Status</label>
         <select id="buildingStatus">
             <option>Active</option>
             <option>Under Maintenance</option>
             <option>Inactive</option>
         </select>
-
-        <button onclick="addBuilding()">Save Building</button>
-
+        <button class="btn-save" onclick="addBuilding()">Save Building</button>
     </div>
-
 </div>
 
-<!-- Connect JavaScript -->
-<script src="js/script.js"></script>
+<script src="js/app.js"></script>
+<script>window.pageInit = loadBuildings;</script>
 </body>
 </html>
-

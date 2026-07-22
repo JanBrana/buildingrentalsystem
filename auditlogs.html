@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit Logs — JEFARELID</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="auditlogs">
+
+<div class="sidebar">
+    <h2>JEFARELID</h2>
+    <a href="dashboard.html" data-page="dashboard">🏠 Dashboard</a>
+    <a href="buildings.html" data-page="buildings">🏢 Buildings</a>
+    <a href="rooms.html" data-page="rooms">🚪 Rooms</a>
+    <a href="tenants.html" data-page="tenants">👤 Tenants</a>
+    <a href="contracts.html" data-page="contracts">📝 Contracts</a>
+    <a href="payments.html" data-page="payments">💰 Payments</a>
+    <a href="utility.html" data-page="utility">💡 Utility Billing</a>
+    <a href="reports.html" data-page="reports">📊 Reports</a>
+    <div id="superAdminMenu">
+        <a href="users.html" data-page="users">👥 User Management</a>
+        <a href="auditlogs.html" data-page="auditlogs">📋 Audit Logs</a>
+    </div>
+    <a href="#" class="logout-link" onclick="logout()">🚪 Logout</a>
+</div>
+
+<div class="content">
+    <div class="page-header">
+        <div>
+            <h1>Audit Logs</h1>
+            <p>Track all system activities and user actions</p>
+        </div>
+        <button class="btn-danger" onclick="clearAuditLogs()">Clear Logs</button>
+    </div>
+
+    <div class="panel">
+        <div class="panel-body table-wrap">
+            <table>
+                <thead>
+                    <tr><th>ID</th><th>Timestamp</th><th>User</th><th>Action</th><th>Module</th><th>Details</th></tr>
+                </thead>
+                <tbody id="auditTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+    window.pageInit = function() {
+        if (localStorage.getItem("role") !== "superadmin") {
+            window.location.href = "dashboard.html";
+            return;
+        }
+        loadAuditLogs();
+    };
+</script>
+</body>
+</html>

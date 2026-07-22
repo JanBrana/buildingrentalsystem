@@ -3,31 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEFARELID Rental Management System</title>
+    <title>Login — JEFARELID Rental Management System</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="login-page">
 
 <div class="login-container">
-
+    <div class="logo">🏢</div>
     <h2>JEFARELID CORP.</h2>
-    <h3>Building and Room Rental Management Systems</h3>
+    <h3>Building and Room Rental Management System</h3>
 
     <form onsubmit="login(event)">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="you@jefarelid.com" required>
 
-        <label>Email</label>
-        <input type="email" id="email" required>
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required>
 
-        <label>Password</label>
-        <input type="password" id="password" required>
-
-        <button type="submit">Login</button>
-
+        <button type="submit">Sign In</button>
     </form>
 
+    <div class="login-hint">
+        <strong>Demo Accounts:</strong><br>
+        Super Admin — superadmin@jefarelid.com / admin123<br>
+        Admin — admin@jefarelid.com / admin123<br>
+        Staff — staff@jefarelid.com / staff123
+    </div>
 </div>
 
-<script src="js/script.js"></script>
-
+<script src="js/app.js"></script>
 </body>
 </html>

@@ -1,106 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tenant Management</title>
-
-<link rel="stylesheet" href="css/style.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenants — JEFARELID</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
+<body data-page="tenants">
 
-<body>
-
-<!-- Sidebar -->
 <div class="sidebar">
-
     <h2>JEFARELID</h2>
-
-    <a href="dashboard.html">🏠 Dashboard</a>
-    <a href="buildings.html">🏢 Buildings</a>
-    <a href="rooms.html">🚪 Rooms</a>
-    <a href="tenants.html">👤 Tenants</a>
-    <a href="contracts.html">📝 Contracts</a>
-    <a href="payments.html">💰 Payments</a>
-    <a href="utility.html">💡 Utility Billing</a>
-    <a href="reports.html">📊 Reports</a>
-
+    <a href="dashboard.html" data-page="dashboard">🏠 Dashboard</a>
+    <a href="buildings.html" data-page="buildings">🏢 Buildings</a>
+    <a href="rooms.html" data-page="rooms">🚪 Rooms</a>
+    <a href="tenants.html" data-page="tenants">👤 Tenants</a>
+    <a href="contracts.html" data-page="contracts">📝 Contracts</a>
+    <a href="payments.html" data-page="payments">💰 Payments</a>
+    <a href="utility.html" data-page="utility">💡 Utility Billing</a>
+    <a href="reports.html" data-page="reports">📊 Reports</a>
     <div id="superAdminMenu">
-        <a href="users.html">👥 User Management</a>
-        <a href="auditlogs.html">📋 Audit Logs</a>
+        <a href="users.html" data-page="users">👥 User Management</a>
+        <a href="auditlogs.html" data-page="auditlogs">📋 Audit Logs</a>
+    </div>
+    <a href="#" class="logout-link" onclick="logout()">🚪 Logout</a>
+</div>
+
+<div class="content">
+    <div class="page-header">
+        <div>
+            <h1>Tenant Management</h1>
+            <p>Manage tenant companies and contact information</p>
+        </div>
+        <button onclick="openTenantModal()">+ Add Tenant</button>
     </div>
 
-    <a href="#" onclick="logout()">🚪 Logout</a>
+    <div class="table-toolbar">
+        <input type="text" id="tenantSearch" class="search-box" placeholder="Search tenants..." oninput="filterTenants()">
+    </div>
 
+    <div class="panel">
+        <div class="panel-body table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th><th>Company Name</th><th>Contact Person</th>
+                        <th>Contact Number</th><th>Email</th><th>Status</th><th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tenantTableBody"></tbody>
+            </table>
+        </div>
+    </div>
 </div>
-
-<!-- Main Content -->
-<div class="content">
-
-    <h1>Tenant Management</h1>
-
-    <button onclick="openTenantModal()">+ Add Tenant</button>
-
-    <br><br>
-
-    <table id="tenantTable">
-
-        <tr>
-            <th>ID</th>
-            <th>Company Name</th>
-            <th>Contact Person</th>
-            <th>Contact Number</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
-
-        <tr>
-
-            <td>1</td>
-            <td>ABC Trading</td>
-            <td>Juan Dela Cruz</td>
-            <td>09123456789</td>
-            <td>abc@example.com</td>
-            <td>Active</td>
-
-            <td>
-                <button onclick="editTenant(this)">Edit</button>
-                <button onclick="deleteTenant(this)">Delete</button>
-            </td>
-
-        </tr>
-
-    </table>
-
-</div>
-
-<!-- Tenant Modal -->
 
 <div id="tenantModal" class="modal">
-
     <div class="modal-content">
-
         <span class="close" onclick="closeTenantModal()">&times;</span>
-
         <h2>Add Tenant</h2>
-
+        <input type="hidden" id="tenantEditId">
         <label>Company Name</label>
-        <input type="text" id="company">
-
+        <input type="text" id="company" placeholder="Company or business name">
         <label>Contact Person</label>
-        <input type="text" id="contactPerson">
-
+        <input type="text" id="contactPerson" placeholder="Full name">
         <label>Contact Number</label>
-        <input type="text" id="contactNumber">
-
+        <input type="text" id="contactNumber" placeholder="09XXXXXXXXX">
         <label>Email</label>
-        <input type="email" id="tenantEmail">
-
+        <input type="email" id="tenantEmail" placeholder="email@company.com">
         <label>Status</label>
-
         <select id="tenantStatus">
-
             <option value="Active">Active</option>
             <option value="Pending Approval">Pending Approval</option>
             <option value="Reserved">Reserved</option>
@@ -109,18 +76,12 @@
             <option value="Expired">Expired</option>
             <option value="Terminated">Terminated</option>
             <option value="Inactive">Inactive</option>
-
         </select>
-
-        <br><br>
-
-        <button onclick="addTenant()">Save</button>
-
+        <button class="btn-save" onclick="addTenant()">Save Tenant</button>
     </div>
-
 </div>
 
-<script src="js/script.js"></script>
-
+<script src="js/app.js"></script>
+<script>window.pageInit = loadTenants;</script>
 </body>
 </html>
